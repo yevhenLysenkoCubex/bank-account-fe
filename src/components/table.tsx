@@ -7,12 +7,12 @@ import Card from "@mui/material/Card";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import { useState } from "react";
-import type { IMockOperations } from "../mock";
+import { IOperation } from "../types";
 
 const columns = [
   {
     header: "Date",
-    accessorKey: "date",
+    accessorKey: "createdAt",
   },
   {
     header: "Amount",
@@ -25,7 +25,7 @@ const columns = [
 ];
 
 interface TableComponentProps {
-  data: IMockOperations[];
+  data: readonly IOperation[];
 }
 
 export function TableComponent({ data }: TableComponentProps) {
@@ -61,7 +61,9 @@ export function TableComponent({ data }: TableComponentProps) {
             ).map((operation) => (
               <TableRow key={operation.id}>
                 {columns.map((col, i) => (
-                  <TableCell key={i}>{operation[col.accessorKey]}</TableCell>
+                  <TableCell key={i}>
+                    {operation[col.accessorKey as keyof IOperation]}
+                  </TableCell>
                 ))}
               </TableRow>
             ))}

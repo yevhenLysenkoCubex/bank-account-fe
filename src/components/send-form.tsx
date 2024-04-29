@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { ChangeEvent } from "react";
 
-import { mock } from "../mock";
+import { mockRecipient } from "../mock";
 
 interface Option {
   id: string;
@@ -51,11 +51,12 @@ export function SendForm({
         value={to.label}
         onChange={(e) =>
           changeTo(
-            mock.find((option) => option.label === e.target.value) || mock[0]
+            mockRecipient.find((option) => option.label === e.target.value) ||
+              mockRecipient[0]
           )
         }
       >
-        {mock.map((item) => (
+        {mockRecipient.map((item) => (
           <MenuItem key={item.id} value={item.label}>
             {item.label}
           </MenuItem>
@@ -63,9 +64,7 @@ export function SendForm({
       </TextField>
       <Button
         onClick={onClick}
-        disabled={
-          to.label.startsWith("No") || value === "0" || Number(value) < 0
-        }
+        disabled={to.label.includes("No") || value === "0" || Number(value) < 0}
       >
         {title}
       </Button>
